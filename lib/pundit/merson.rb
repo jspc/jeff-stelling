@@ -10,9 +10,9 @@ class Merson
     else
       case rand(99) % 3
       when 0
-        return "Paul Merson: OOOAAAOOO! WHAT A GOAL! #{ mangle( json['who'].upcase ) }!"
+        return "Paul Merson: OOOAAAOOO! WHAT A GOAL! #{ mangle( parsed_json['who'].upcase ) }!"
       when 1
-        return "Paul Merson: #{ json['who'] } is on fire! He must be on something, and I'd know!"
+        return "Paul Merson: #{ parsed_json['who'] } is on fire! He must be on something, and I'd know!"
       when 2
         return "Paul Merson: "
       end
@@ -24,7 +24,7 @@ class Merson
   end
 
   def self.mangle name
-    name =~ s/th/sth/g
+    name.gsub! "th", "sth"
   end
 
 end
