@@ -10,6 +10,7 @@ require 'twitter'
 require 'oauth'
 require 'json'
 require 'pundit.rb'
+require 'colorize'
  
 def do_the_thing last
   scorers = Array.new
@@ -21,13 +22,12 @@ def do_the_thing last
         who = "#{who} #{word}" if word[0..0] =~ /[A-Z]/
       end
       
-      begin
-        score.at_css(".col_status").at_css(".ht").css("strong")
-        ga = ".at"
+      if score.at_css(".col_status").at_css(".ht").css("strong").length == 1
         gf = ".ht"
-      rescue
-        ga = ".ht"
+        ga = ".at"
+      else
         gf = ".at"
+        ga = ".ht"
       end
       
       team_against = score.at_css(".col_status").at_css( ga ).text.tr( "0-9", "" )
@@ -60,19 +60,20 @@ last = ENV['JEFF_LAST'] || nil
 while true
   scorers = do_the_thing last
   scorers.each do |scoreline|
-    puts scoreline
 
     tweeter = pundit.get
     message = tweeter.say scoreline
+
+    puts "#{scoreline.blue}\t\t\t::\t\t\t#{message.green}"
 
     begin
       #Twitter.update scoreline
     rescue
       puts "Couldn't post this"
-    end
+   end
     last = scoreline
     sleep 15
   end
-  puts "Sleeping"
+  puts "Sleeping".magenta
   sleep 60
 end
