@@ -12,7 +12,7 @@ class Pundit
   def initialize
     @pundit = [ 
                Kammy,
-               Mercer,
+               Merson,
                Thommo,
                LeTis,
                Stelling,
