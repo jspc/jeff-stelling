@@ -10,7 +10,14 @@ class Thommo
     elsif parsed_json['for'].downcase =~ /man utd/
       return "Phil Thompson: #{ united( parsed_json ) }"
     else
-      return "Phil Thompson: Errr good goal from #{ parsed_json['who'] } for #{ parsed_json['for'] }!"
+      case rand(99) % 3
+      when 0
+        return "Phil Thompson: Errr good goal from #{ parsed_json['who'] } for #{ parsed_json['for'] }"
+      when 1
+        return "Phil Thompson: Y'know the lad #{ json['who'] } could sign for Liverpool for that goal!"
+      when 2
+        return "Phil Thompson: **Scouse Mumbilngs** #{ parsed_json['for'] } **mumble** Goal! **angry threat**"
+      end
     end
   end
 
