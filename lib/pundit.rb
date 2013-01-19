@@ -4,7 +4,7 @@
 
 #require 'pundit/cammy.rb'
 #require 'pundit/mercer.rb'
-#require 'pundit/thommo.rb'
+require 'pundit/thommo.rb'
 #require 'pundit/letis.rb'
 require 'pundit/stelling.rb'
 
@@ -13,7 +13,7 @@ class Pundit
     @pundit = [ 
 #               Cammy,
 #               Mercer,
-#               Thommo,
+               Thommo,
 #               LeTis,
                Stelling,
               ]
