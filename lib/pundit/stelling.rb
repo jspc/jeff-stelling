@@ -3,7 +3,8 @@
 # Jeff Stelling
 
 class Stelling
-  def say who, team
-    "That #{who} loves scoring against #{team}!"
+  def self.say json
+    parsed_json = JSON.parse( json )[0]
+    "Jeff Stelling: That #{ parsed_json['who'] } loves scoring against #{ parsed_json['against'] }!"
   end
 end

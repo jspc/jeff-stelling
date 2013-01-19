@@ -2,24 +2,24 @@
 #
 # Select a pundit and return a string based on that
 
-require 'pundit/cammy.rb'
-require 'pundit/mercer.rb'
-require 'pundit/thommo.rb'
-require 'pundit/letis.rb'
+#require 'pundit/cammy.rb'
+#require 'pundit/mercer.rb'
+#require 'pundit/thommo.rb'
+#require 'pundit/letis.rb'
 require 'pundit/stelling.rb'
 
 class Pundit
   def initialize
     @pundit = [ 
-               Cammy,
-               Mercer,
-               Thommo,
-               LeTis,
+#               Cammy,
+#               Mercer,
+#               Thommo,
+#               LeTis,
                Stelling,
               ]
   end
 
-  def get_pundit
+  def get
     @pundit.sample
   end
 

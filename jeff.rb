@@ -2,10 +2,14 @@
 #
 #
 
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '.', 'lib')
+
 require 'nokogiri'
 require 'open-uri'
 require 'twitter'
 require 'oauth'
+require 'json'
+require 'pundit.rb'
  
 def do_the_thing last
   scorers = Array.new
@@ -19,13 +23,21 @@ def do_the_thing last
       
       begin
         score.at_css(".col_status").at_css(".ht").css("strong")
-        which = ".at"
+        ga = ".at"
+        gf = ".ht"
       rescue
-        which = ".ht"
+        ga = ".ht"
+        gf = ".at"
       end
       
-      team = score.at_css(".col_status").at_css( which ).text.tr( "0-9", "" )
-      message = "That #{who} loves scoring against #{team} /cc @SkySportsNews"
+      team_against = score.at_css(".col_status").at_css( ga ).text.tr( "0-9", "" )
+      team_for     = score.at_css(".col_status").at_css( gf ).text.tr( "0-9", "" )
+
+      message = [ :who     => who, 
+                  :for     => team_for, 
+                  :against => team_against
+                ].to_json
+
       if message == last
         return scorers
       end
@@ -42,13 +54,19 @@ Twitter.configure do |config|
   config.oauth_token_secret  = ENV['JEFF_SECRET']
 end
 
+pundit = Pundit.new
+
 last = ENV['JEFF_LAST'] || nil
 while true
   scorers = do_the_thing last
   scorers.each do |scoreline|
     puts scoreline
+
+    tweeter = pundit.get
+    message = tweeter.say scoreline
+
     begin
-      Twitter.update scoreline
+      #Twitter.update scoreline
     rescue
       puts "Couldn't post this"
     end
