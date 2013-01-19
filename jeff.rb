@@ -76,7 +76,7 @@ while true
       puts "Couldn't post this"
    end
     last = scoreline
-    sleep 15
+#    sleep 15
   end
   puts "Sleeping".magenta
   sleep 60
