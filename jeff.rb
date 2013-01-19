@@ -38,8 +38,8 @@ end
 Twitter.configure do |config|
   config.consumer_key        = "8AwuBOOBZGVxjPwfx2StiA"
   config.consumer_secret     = "0sgTA9dVlSvKZkNceoSPtqJcAS5Xl5ITtegUVr83U"
-  config.oauth_token         = "502168596-acf139WpgXQYN0HJBaythBpVeq8ORAmRa0wEjhTk"
-  config.oauth_token_secret  = "Fto28f012CoNBEcUxN05LxyDmnAhCzb9sgj7ocMBJA"
+  config.oauth_token         = ENV['JEFF_TOKEN']
+  config.oauth_token_secret  = ENV['JEFF_SECRET']
 end
 
 last = "That  Sturridge loves scoring against Norwich /cc @SkySportsNews"
