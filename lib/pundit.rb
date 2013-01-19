@@ -5,7 +5,7 @@
 require 'pundit/kammy.rb'
 #require 'pundit/mercer.rb'
 require 'pundit/thommo.rb'
-#require 'pundit/letis.rb'
+require 'pundit/letis.rb'
 require 'pundit/stelling.rb'
 
 class Pundit
@@ -14,7 +14,7 @@ class Pundit
                Kammy,
 #               Mercer,
                Thommo,
-#               LeTis,
+               LeTis,
                Stelling,
               ]
   end
