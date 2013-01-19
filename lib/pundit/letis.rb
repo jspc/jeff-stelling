@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# Thommo - http://en.wikipedia.org/wiki/Phil_Thompson
+# Matt 'le God' Le Tissier
 
 class LeTis
   def self.say json
