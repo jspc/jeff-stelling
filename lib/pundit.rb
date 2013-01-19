@@ -7,6 +7,7 @@ require 'pundit/merson.rb'
 require 'pundit/thommo.rb'
 require 'pundit/letis.rb'
 require 'pundit/stelling.rb'
+require 'pundit/gray.rb'
 
 class Pundit
   def initialize
@@ -16,6 +17,7 @@ class Pundit
                Thommo,
                LeTis,
                Stelling,
+               Gray,
               ]
   end
 
