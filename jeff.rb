@@ -37,7 +37,7 @@ def do_the_thing last
                   :for     => team_for, 
                   :against => team_against
                 ].to_json
-
+      
       if message == last
         return scorers
       end
@@ -62,8 +62,12 @@ while true
   scorers.each do |scoreline|
 
     tweeter = pundit.get
-    message = tweeter.say scoreline
+    message = ""
 
+    while message.empty? or message.length > 140
+      message = tweeter.say scoreline
+    end
+    
     puts "#{scoreline.blue}\t\t\t::\t\t\t#{message.green}"
 
     begin
