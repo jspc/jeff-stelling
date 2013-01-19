@@ -47,7 +47,11 @@ while true
   scorers = do_the_thing last
   scorers.each do |scoreline|
     puts scoreline
-    Twitter.update scoreline
+    begin
+      Twitter.update scoreline
+    rescue
+      puts "Couldn't post this"
+    end
     last = scoreline
     sleep 15
   end
