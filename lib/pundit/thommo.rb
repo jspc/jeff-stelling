@@ -16,7 +16,7 @@ class Thommo
       when 1
         return "Phil Thompson: Y'know the lad #{ parsed_json['who'] } could sign for Liverpool for that goal!"
       when 2
-        return "Phil Thompson: **Scouse Mumbilngs** #{ parsed_json['for'] } **mumble** Goal! **angry threat**"
+        return "Phil Thompson: **Scouse Mumblings** #{ parsed_json['for'] } **mumble** Goal! **angry threat**"
       end
     end
   end
