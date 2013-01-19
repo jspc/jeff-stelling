@@ -3,3 +3,5 @@
 *#
 .tmpdata
 Gemfile.lock
+.DS_Store
+
