@@ -10,5 +10,6 @@ class Stelling
       return "Jeff Stelling: That #{ parsed_json['who'] } loves scoring against #{ parsed_json['against'] }!"
     when 1
       return "Jeff Stelling: Goal between #{ parsed_json['against'] } and #{ parsed_json['for'] } and its #{ parsed_json['against'] } who got it"
+    end
   end
 end
