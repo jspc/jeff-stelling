@@ -9,7 +9,7 @@ require 'oauth'
  
 def do_the_thing last
   scorers = Array.new
-  
+
   Nokogiri::HTML( open("http://www.bbc.co.uk/sport/football/live-scores/videprinter") ).css( ".live" ).each do |score|
     if score.at_css(".col_action").text =~ /GOAL/
       who = ""
@@ -42,7 +42,7 @@ Twitter.configure do |config|
   config.oauth_token_secret  = ENV['JEFF_SECRET']
 end
 
-last = "That  Sturridge loves scoring against Norwich /cc @SkySportsNews"
+last = ENV['JEFF_LAST'] || nil
 while true
   scorers = do_the_thing last
   scorers.each do |scoreline|
