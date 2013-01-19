@@ -5,7 +5,7 @@
 class Kammy
   def self.say json
     parsed_json = JSON.parse( json )[0]
-    case rand(99) % 3
+    case rand(99) % 2
     when 0
       return "Kammy: UNBELIEVEABLE JEFF! #{ parsed_json['who'].upcase } HAS SCORED AGAINST #{ parsed_json['against'].upcase }!"
     when 1
