@@ -8,7 +8,7 @@ class Merson
     if parsed_json['for'].downcase =~ /arsenal/
       return "Paul Merson: #{ arsenal( parsed_json ) }"
     elsif parsed_json['who'].downcase =~ /agbonlahor/  
-      return "What a play by Agbongsawhore!"
+      return "Paul Merson: What a play by Agbongsawhore!"
     else
       case rand(99) % 3
       when 0
@@ -16,7 +16,7 @@ class Merson
       when 1
         return "Paul Merson: #{ parsed_json['who'] } is on fire! He must be on something, and I'd know!"
       when 2
-        return "Paul Merson: "
+        return "Paul Merson: #{ parsed_json['who']} Has taken a gamble, and it's paid off, and I know gambling!"
       end
     end
   end
@@ -24,7 +24,7 @@ class Merson
   def self.arsenal json
     return "OOOAAAOOO! WHAT A GOAL! #{ json['who'].upcase }!"
   end
-  
+
   def self.mangle name
     name.gsub! "th", "sth"
     name.gsub! "k", "t"
