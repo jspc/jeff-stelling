@@ -39,9 +39,10 @@ def do_the_thing last
       team_against = score.at_css(".col_status").at_css( ga ).text.tr( "0-9", "" )
       team_for     = score.at_css(".col_status").at_css( gf ).text.tr( "0-9", "" )
 
-      message = [ :who     => who, 
-                  :for     => team_for, 
-                  :against => team_against
+      message = [
+                 :who     => who, 
+                 :for     => team_for, 
+                 :against => team_against
                 ].to_json
       
       if message == last
