@@ -2,7 +2,7 @@
 #
 #
 
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '.', 'lib')
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
 require 'nokogiri'
 require 'open-uri'
