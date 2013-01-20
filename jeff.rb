@@ -65,7 +65,7 @@ while true
     message = ""
 
     while message.empty? or message.length > 140
-      puts "The message '#{message}' is too long".bold.purple
+      puts "The message '#{message}' is too long".purple
       message = tweeter.say scoreline
     end
     
