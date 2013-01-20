@@ -24,6 +24,7 @@ class Merson
   def self.arsenal json
     return "OOOAAAOOO! WHAT A GOAL! #{ json['who'].upcase }!"
   end
+  
   def self.mangle name
     name.gsub! "th", "sth"
     name.gsub! "k", "t"
