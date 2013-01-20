@@ -63,6 +63,8 @@ end
 pundit = Pundit.new
 
 last = ENV['JEFF_LAST'] || nil
+env  = ENV['JEFF_ENV']  || nil
+
 while true
   scorers = do_the_thing last
   scorers.each do |scoreline|
@@ -78,7 +80,7 @@ while true
     puts "#{scoreline.blue}\t\t\t::\t\t\t#{message.green}"
 
     begin
-      Twitter.update message
+      Twitter.update message if env == "live"
     rescue
       puts "Couldn't post this"
    end
