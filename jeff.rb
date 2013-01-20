@@ -65,13 +65,14 @@ while true
     message = ""
 
     while message.empty? or message.length > 140
+      puts "The message '#{message}' is too long".bold.purple
       message = tweeter.say scoreline
     end
     
     puts "#{scoreline.blue}\t\t\t::\t\t\t#{message.green}"
 
     begin
-      #Twitter.update scoreline
+      Twitter.update scoreline
     rescue
       puts "Couldn't post this"
    end
