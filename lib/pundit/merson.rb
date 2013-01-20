@@ -16,7 +16,7 @@ class Merson
       when 1
         return "Paul Merson: #{ parsed_json['who'] } is on fire! He must be on something, and I'd know!"
       when 2
-        return "Paul Merson: #{ parsed_json['who']} Has taken a gamble, and it's paid off, and I know gambling!"
+        return "Paul Merson: #{ parsed_json['who'] } Has taken a gamble, and it's paid off, and I know gambling!"
       end
     end
   end
@@ -29,6 +29,7 @@ class Merson
     name.gsub! "th", "sth"
     name.gsub! "k", "t"
     name.gsub! "g", ""
+    return name
   end
 
 end
