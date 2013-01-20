@@ -82,6 +82,7 @@ while true
     end
     
     puts "#{scoreline.blue}\t\t\t::\t\t\t#{message.green}"
+    store.sadd "tweets", message
 
     begin
       Twitter.update message if env == "live"
