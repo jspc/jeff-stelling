@@ -21,9 +21,10 @@ Running
 After the above is done you're gravy. Run it as per:
 
 ```bash
-JEFF_TOKEN=your_token_from_the_above_script JEFF_SECRET=your_secret_from_above ruby jeff.rb
+JEFF_ENV=live JEFF_TOKEN=your_token_from_the_above_script JEFF_SECRET=your_secret_from_above ruby jeff.rb
 ```
 
+Obviously remove the JEFF_ENV var for development/ testing
 
 Gotchas
 --
