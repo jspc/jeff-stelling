@@ -11,6 +11,7 @@ require 'oauth'
 require 'json'
 require 'pundit.rb'
 require 'colorize'
+require 'redis'
  
 def do_the_thing last
   scorers = Array.new
@@ -62,12 +63,14 @@ Twitter.configure do |config|
 end
 
 pundit = Pundit.new
+store  = Redis.new
 
-last = ENV['JEFF_LAST'] || nil
-env  = ENV['JEFF_ENV']  || nil
+env    = ENV['JEFF_ENV']          || nil
 
 while true
+  last    = store.get "jeff-last" || nil
   scorers = do_the_thing last
+
   scorers.each do |scoreline|
 
     tweeter = pundit.get
@@ -84,10 +87,12 @@ while true
       Twitter.update message if env == "live"
     rescue
       puts "Couldn't post this"
-   end
-    last = scoreline
-    sleep 15
+    end
+    store.set "jeff-last", scoreline
+    sleep 15 if env == 'live' # Flow control
   end
+  
+  store.save
   puts "Sleeping".magenta
   sleep 60
 end
