@@ -2,7 +2,7 @@
 #
 #
 
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '.', 'lib')
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
 require 'nokogiri'
 require 'open-uri'
@@ -11,6 +11,7 @@ require 'oauth'
 require 'json'
 require 'pundit.rb'
 require 'colorize'
+require 'redis'
  
 def do_the_thing last
   scorers = Array.new
@@ -39,9 +40,10 @@ def do_the_thing last
       team_against = score.at_css(".col_status").at_css( ga ).text.tr( "0-9", "" )
       team_for     = score.at_css(".col_status").at_css( gf ).text.tr( "0-9", "" )
 
-      message = [ :who     => who, 
-                  :for     => team_for, 
-                  :against => team_against
+      message = [
+                 :who     => who, 
+                 :for     => team_for, 
+                 :against => team_against
                 ].to_json
       
       if message == last
@@ -61,10 +63,14 @@ Twitter.configure do |config|
 end
 
 pundit = Pundit.new
+store  = Redis.new
 
-last = ENV['JEFF_LAST'] || nil
+env    = ENV['JEFF_ENV']          || nil
+
 while true
+  last    = store.get "jeff-last" || nil
   scorers = do_the_thing last
+
   scorers.each do |scoreline|
 
     tweeter = pundit.get
@@ -76,15 +82,18 @@ while true
     end
     
     puts "#{scoreline.blue}\t\t\t::\t\t\t#{message.green}"
+    store.sadd "tweets", message
 
     begin
-      Twitter.update message
+      Twitter.update message if env == "live"
     rescue
       puts "Couldn't post this"
-   end
-    last = scoreline
-    sleep 15
+    end
+    store.set "jeff-last", scoreline
+    sleep 15 if env == 'live' # Flow control
   end
+  
+  store.save
   puts "Sleeping".magenta
   sleep 60
 end
