@@ -14,8 +14,14 @@ require 'colorize'
  
 def do_the_thing last
   scorers = Array.new
+  
+  begin
+    html = Nokogiri::HTML( open("http://www.bbc.co.uk/sport/football/live-scores/videprinter") )
+  rescue
+    return scorers
+  end
 
-  Nokogiri::HTML( open("http://www.bbc.co.uk/sport/football/live-scores/videprinter") ).css( ".live" ).each do |score|
+  html.css( ".live" ).each do |score|
     if score.at_css(".col_action").text =~ /GOAL/
       who = ""
       score.at_css(".col_comment").text.gsub(/[^A-Za-z ]/i, '').split().each do |word|
@@ -65,14 +71,14 @@ while true
     message = ""
 
     while message.empty? or message.length > 140
-      puts "The message '#{message}' is too long".red
+      puts "The message '#{message}' is too long".red unless message.empty?
       message = tweeter.say scoreline
     end
     
     puts "#{scoreline.blue}\t\t\t::\t\t\t#{message.green}"
 
     begin
-      Twitter.update scoreline
+      Twitter.update message
     rescue
       puts "Couldn't post this"
    end
