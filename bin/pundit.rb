@@ -12,13 +12,18 @@ require 'json'
 require 'pundit.rb'
 require 'colorize'
 require 'redis'
+
+def err error
+  puts "\t\t#{error}".red
+end
  
 def do_the_thing last
   scorers = Array.new
   
   begin
     html = Nokogiri::HTML( open("http://www.bbc.co.uk/sport/football/live-scores/videprinter") )
-  rescue
+  rescue Exception => e
+    err "Couldn't get videprinter data: #{e}"
     return scorers
   end
 
@@ -77,7 +82,7 @@ while true
     message = ""
 
     while message.empty? or message.length > 140
-      puts "The message '#{message}' is too long".red unless message.empty?
+      err "The message '#{message}' is too long" unless message.empty?
       message = tweeter.say scoreline
     end
     
@@ -86,8 +91,9 @@ while true
 
     begin
       Twitter.update message if env == "live"
-    rescue
+    rescue Exception => e
       puts "Couldn't post this"
+      err "\t#{e}".red
     end
     store.set "jeff-last", scoreline
     sleep 15 if env == 'live' # Flow control
